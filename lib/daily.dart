@@ -22,7 +22,6 @@ class _DailyState extends State<Daily> {
   DailyApi? resTexas;
   DailyApi? resOslo;
   DailyApi? resKualaLumpur;
-
   DailyApi? selectedCity;
   String day1 = "";
   String day2 = "";

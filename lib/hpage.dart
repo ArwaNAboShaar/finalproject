@@ -100,12 +100,14 @@ class _HomePageTwoState extends State<HomePageTwo> {
                           height: 100,
                           width: 100,
                         )
-                      : Image.network(
+                      :
+                  Image.network(
                           ("https:${(widget.w) == null ? rafah.img : widget.w?.img}")
                               .replaceAll("64x64", "128x128"),
                           scale: 0.7,
                           height: 200,
                         ),
+
                   SizedBox(
                     height: 30,
                   ),

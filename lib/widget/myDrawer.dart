@@ -99,7 +99,7 @@ class _MyDrawerState extends State<MyDrawer> {
               onTap: () {
                 // Get.toNamed(RouteHelper.tabletfirst);
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Hourly();
+                  return Hourly(w:widget.sw);
                 }));
               },
             ),
