@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'model/dailyapi.dart';
+import 'model/getCityWeather.dart';
 import 'model/weather.dart';
 
 
@@ -30,6 +31,7 @@ class _DailyState extends State<Daily> {
   String day5 = "";
   String day6 = "";
   String day7 = "";
+  GetCityWeather c = GetCityWeather();
 
   var currDay = DateFormat('EEEE').format(DateTime.now());
 
@@ -106,7 +108,32 @@ class _DailyState extends State<Daily> {
     } else if (city == 'Kuala Lumpur') {
       selectedCity = resKualaLumpur;
     }
-
+    c.getWeather();
+    Weather rafah = Weather(
+        location: "Rafah",
+        img: c.resRafah?.current?.condition?.icon,
+        states: c.resRafah?.current?.condition?.text.toString() ?? "",
+        temp: c.resRafah?.current?.tempC);
+    Weather london = Weather(
+        location: "London",
+        img: c.resLondon?.current?.condition?.icon,
+        states: c.resLondon?.current?.condition?.text.toString() ?? "",
+        temp: c.resLondon?.current?.tempC);
+    Weather texas = Weather(
+        location: "Texas",
+        img: c.resTexas?.current?.condition?.icon,
+        states: c.resTexas?.current?.condition?.text.toString() ?? "",
+        temp: c.resTexas?.current?.tempC);
+    Weather oslo = Weather(
+        location: "Oslo",
+        img: c.resOslo?.current?.condition?.icon,
+        states: c.resOslo?.current?.condition?.text.toString() ?? "",
+        temp: c.resOslo?.current?.tempC);
+    Weather kualaLumpur = Weather(
+        location: "Kuala Lumpur",
+        img: c.resKualaLumpur?.current?.condition?.icon,
+        states: c.resKualaLumpur?.current?.condition?.text.toString() ?? "",
+        temp: c.resKualaLumpur?.current?.tempC);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -237,7 +264,12 @@ class _DailyState extends State<Daily> {
           ],
         ),
       ),
-      drawer: MyDrawer(),
+      drawer: MyDrawer( w1: rafah,
+          w2: london,
+          w3: texas,
+          w4: oslo,
+          w5: kualaLumpur,
+          sw: widget.w),
     );
   }
 

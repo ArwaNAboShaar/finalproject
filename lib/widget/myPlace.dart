@@ -45,6 +45,14 @@ class _MyPlaceState extends State<MyPlace> {
                             color: Colors.white.withOpacity(0.7), fontSize: 24))
                   ],
                 ),
+                (widget.w?.img) ==
+                    null
+                    ? Image.asset(
+                  "assets/images/loading.png",
+                  height: 40,
+                  width: 40,
+                )
+                    :
                 Image.network(
                   ("https:${widget.w?.img}"),
                   scale: 0.7,

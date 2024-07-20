@@ -1,5 +1,6 @@
 import 'package:finalpro/widget/myDrawer.dart';
 import 'package:flutter/material.dart';
+import 'model/getCityWeather.dart';
 import 'model/hourlyapi.dart';
 import 'model/weather.dart';
 import 'package:http/http.dart' as http;
@@ -21,7 +22,7 @@ class _HourlyState extends State<Hourly> {
   HourlyApi? resOslo;
   HourlyApi? resKualaLumpur;
   HourlyApi? selectedCity;
-
+  GetCityWeather c = GetCityWeather();
   @override
   Widget build(BuildContext context) {
     getHourlyWeather();
@@ -37,6 +38,34 @@ class _HourlyState extends State<Hourly> {
     } else if (city == 'Kuala Lumpur') {
       selectedCity = resKualaLumpur;
     }
+
+
+    c.getWeather();
+    Weather rafah = Weather(
+        location: "Rafah",
+        img: c.resRafah?.current?.condition?.icon,
+        states: c.resRafah?.current?.condition?.text.toString() ?? "",
+        temp: c.resRafah?.current?.tempC);
+    Weather london = Weather(
+        location: "London",
+        img: c.resLondon?.current?.condition?.icon,
+        states: c.resLondon?.current?.condition?.text.toString() ?? "",
+        temp: c.resLondon?.current?.tempC);
+    Weather texas = Weather(
+        location: "Texas",
+        img: c.resTexas?.current?.condition?.icon,
+        states: c.resTexas?.current?.condition?.text.toString() ?? "",
+        temp: c.resTexas?.current?.tempC);
+    Weather oslo = Weather(
+        location: "Oslo",
+        img: c.resOslo?.current?.condition?.icon,
+        states: c.resOslo?.current?.condition?.text.toString() ?? "",
+        temp: c.resOslo?.current?.tempC);
+    Weather kualaLumpur = Weather(
+        location: "Kuala Lumpur",
+        img: c.resKualaLumpur?.current?.condition?.icon,
+        states: c.resKualaLumpur?.current?.condition?.text.toString() ?? "",
+        temp: c.resKualaLumpur?.current?.tempC);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -108,9 +137,9 @@ class _HourlyState extends State<Hourly> {
                                         ("https:${selectedCity?.forecast?.forecastday
                                             ?.elementAt(0).hour?.elementAt(index).condition?.icon}")),
 
-                                // (selectedCity?.forecast?.forecastday?.hour?.elementAt(index).tempC) ==
-                                //     null
-                                //     ?Text(""):
+                                (selectedCity?.forecast?.forecastday?.elementAt(0).hour?.elementAt(index).tempC) ==
+                                    null
+                                    ?Text(""):
                                 Text(
                                   "${selectedCity?.forecast?.forecastday
                       ?.elementAt(0).hour?.elementAt(index).tempC}°C",
@@ -134,7 +163,12 @@ class _HourlyState extends State<Hourly> {
           ],
         ),
       ),
-      drawer: MyDrawer(),
+      drawer: MyDrawer( w1: rafah,
+          w2: london,
+          w3: texas,
+          w4: oslo,
+          w5: kualaLumpur,
+          sw: widget.w),
     );
   }
 
